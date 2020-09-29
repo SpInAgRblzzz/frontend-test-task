@@ -1,8 +1,26 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+
+import { getMessagesList } from "../fakeApi";
+import { messagesSelector, setMessagesAction } from "../store";
 
 export const List = () => {
-    const rate = useSelector((state: { rate: string }) => state);
+    const dispatch = useDispatch();
+    const messages = useSelector(messagesSelector);
 
-    return <div>{rate} TODO: implement ME</div>;
+    useEffect(() => {
+        const messagesSubscribe = getMessagesList().subscribe((value) => {
+            dispatch(setMessagesAction(value));
+        });
+        return () => {
+            messagesSubscribe.unsubscribe();
+        };
+    }, [dispatch]);
+    return (
+        <ul>
+            {messages.map((message) => (
+                <li key={message.id}> {message.text}</li>
+            ))}
+        </ul>
+    );
 };
