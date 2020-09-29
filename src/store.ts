@@ -13,7 +13,7 @@ type SetMessagesAction = {
     payload: message[];
 };
 
-type message = {
+export type message = {
     id: number;
     text: string;
     canDelete: boolean;

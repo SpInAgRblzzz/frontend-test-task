@@ -4,6 +4,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { getMessagesList } from "../fakeApi";
 import { messagesSelector, setMessagesAction } from "../store";
 
+import { ListItem } from "./ListItem";
+
 export const List = () => {
     const dispatch = useDispatch();
     const messages = useSelector(messagesSelector);
@@ -17,10 +19,10 @@ export const List = () => {
         };
     }, [dispatch]);
     return (
-        <ul>
+        <div>
             {messages.map((message) => (
-                <li key={message.id}> {message.text}</li>
+                <ListItem key={message.id} message={message} />
             ))}
-        </ul>
+        </div>
     );
 };
