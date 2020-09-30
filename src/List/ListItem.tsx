@@ -2,7 +2,11 @@ import React, { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Big from "big.js";
 
-import { addServiceMessageAction, deleteMessageAction, message, rateSelector } from "../store";
+import { addServiceMessageAction, deleteMessageAction } from "../redux/actionCreators";
+
+import { rateSelector } from "../redux/selectors";
+
+import { message } from "../Types";
 
 type ListItemProps = {
     message: message;

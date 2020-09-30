@@ -2,7 +2,8 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { getMessagesList } from "../fakeApi";
-import { messagesSelector, setMessagesAction } from "../store";
+import { setMessagesAction } from "../redux/actionCreators";
+import { messagesSelector } from "../redux/selectors";
 
 import { ListItem } from "./ListItem";
 
