@@ -59,3 +59,4 @@ type storeType = {
 export const store = createStore(reducers, {});
 
 export const messagesSelector = (store: storeType): message[] => store.messages;
+export const rateSelector = (store: storeType): string => store.rate;

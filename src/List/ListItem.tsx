@@ -1,9 +1,11 @@
 import React from "react";
 
-import { message } from "../store";
-
 type ListItemProps = {
-    message: message;
+    usdAmount: string | null;
+    text: string;
 };
-
-export const ListItem = ({ message }: ListItemProps) => <div>{message.text}</div>;
+export const ListItem = ({ usdAmount, text }: ListItemProps) => (
+    <div>
+        {text} {usdAmount && <p>{usdAmount} USD</p>}
+    </div>
+);
