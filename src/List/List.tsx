@@ -21,16 +21,30 @@ export const List = () => {
     }, [dispatch]);
     return (
         <div>
-            {messages.map(({ id, btcAmount, text, messageType, messageContent, canDelete }) => (
-                <ListItem
-                    key={id}
-                    btcAmount={btcAmount}
-                    text={text}
-                    messageType={messageType}
-                    messageContent={messageContent}
-                    canDelete={canDelete}
-                />
-            ))}
+            {messages.map(
+                ({
+                    id,
+                    btcAmount,
+                    text,
+                    messageType,
+                    messageContent,
+                    canDelete,
+                    isService,
+                    serviceAdded,
+                }) => (
+                    <ListItem
+                        key={id}
+                        btcAmount={btcAmount}
+                        text={text}
+                        messageType={messageType}
+                        messageContent={messageContent}
+                        canDelete={canDelete}
+                        isService={isService}
+                        id={id}
+                        serviceAdded={serviceAdded}
+                    />
+                ),
+            )}
         </div>
     );
 };
