@@ -63,7 +63,7 @@ export const ListItem = ({ message }: ListItemProps) => {
                 title={text}
                 action={
                     canDelete && (
-                        <Button onClick={handleDelete} color="secondary">
+                        <Button variant="outlined" onClick={handleDelete} color="secondary">
                             DELETE
                         </Button>
                     )
@@ -93,7 +93,11 @@ export const ListItem = ({ message }: ListItemProps) => {
 
             {!isService && (
                 <CardActions>
-                    <Button disabled={serviceAdded} onClick={handleAddServiceMessage}>
+                    <Button
+                        variant="contained"
+                        disabled={serviceAdded}
+                        onClick={handleAddServiceMessage}
+                    >
                         Show secvice message
                     </Button>
                 </CardActions>
