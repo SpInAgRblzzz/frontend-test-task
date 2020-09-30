@@ -37,18 +37,20 @@ export const ListItem = ({
     }, [dispatch, id]);
 
     return (
-        <div className={messageType}>
-            <div>
+        <div className={`message ${messageType}`}>
+            <div className="message-header">
                 <h3>{text}</h3>
                 {canDelete && <button onClick={handleDelete}>DELETE</button>}
             </div>
 
-            <div>
-                {btcAmount && <p>{Big(btcAmount).times(rate).toString()} USD</p>}
+            <div className="message-content">
+                {btcAmount && (
+                    <p className="usd-rate">{Big(btcAmount).times(rate).toString()} USD</p>
+                )}
                 {Array.isArray(messageContent) ? (
                     <ul>
                         {messageContent.map(({ source, amount }, index) => (
-                            <li key={index}>
+                            <li key={index} className="source-item">
                                 {source} {<p>{Big(amount).times(rate).toString()} USD</p>}
                             </li>
                         ))}
@@ -57,8 +59,10 @@ export const ListItem = ({
                     messageContent
                 )}
             </div>
-            {!isService && !serviceAdded && (
-                <button onClick={handleAddServiceMessage}>Show secvice message</button>
+            {!isService && (
+                <button disabled={serviceAdded} onClick={handleAddServiceMessage}>
+                    Show secvice message
+                </button>
             )}
         </div>
     );

@@ -6,6 +6,8 @@ import { messagesSelector, setMessagesAction } from "../store";
 
 import { ListItem } from "./ListItem";
 
+import "./ListStyles.scss";
+
 export const List = () => {
     const dispatch = useDispatch();
 
@@ -20,7 +22,7 @@ export const List = () => {
         };
     }, [dispatch]);
     return (
-        <div>
+        <div className="messages-container">
             {messages.map(
                 ({
                     id,
