@@ -12,6 +12,8 @@ import {
     Typography,
 } from "@material-ui/core";
 
+import { makeStyles, createStyles } from "@material-ui/core/styles";
+
 import { addServiceMessageAction, deleteMessageAction } from "../redux/actionCreators";
 
 import { rateSelector } from "../redux/selectors";
@@ -22,8 +24,16 @@ type ListItemProps = {
     message: message;
 };
 
+const useStyles = makeStyles(() =>
+    createStyles({
+        card: { minWidth: "410px", marginBottom: "15px" },
+        header: { display: "flex", justifyContent: "space-between" },
+    }),
+);
+
 export const ListItem = ({ message }: ListItemProps) => {
     const dispatch = useDispatch();
+    const classes = useStyles();
 
     const {
         btcAmount,
@@ -47,8 +57,9 @@ export const ListItem = ({ message }: ListItemProps) => {
     }, [dispatch, id]);
 
     return (
-        <Card className={messageType} variant="outlined">
+        <Card className={`${messageType} ${classes.card}`} variant="outlined">
             <CardHeader
+                className={classes.header}
                 title={text}
                 action={
                     canDelete && (
