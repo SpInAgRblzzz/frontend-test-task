@@ -7,6 +7,7 @@ import { addServiceMessageAction, deleteMessageAction, message, rateSelector } f
 type ListItemProps = {
     message: message;
 };
+
 export const ListItem = ({ message }: ListItemProps) => {
     const dispatch = useDispatch();
 
