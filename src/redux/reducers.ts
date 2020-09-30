@@ -72,4 +72,9 @@ export const messagesReducer = (
     }
 };
 
+export type StoreType = {
+    rate: string;
+    messages: message[];
+};
+
 export const reducers = combineReducers({ rate: rateReducer, messages: messagesReducer });

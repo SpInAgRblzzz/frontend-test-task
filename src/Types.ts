@@ -8,8 +8,3 @@ export type message = {
     isService?: boolean;
     serviceAdded?: boolean;
 };
-
-export type StoreType = {
-    rate: string;
-    messages: message[];
-};

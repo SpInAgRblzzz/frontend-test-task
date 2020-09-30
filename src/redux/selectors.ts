@@ -1,4 +1,13 @@
-import { StoreType, message } from "../Types";
+import { createSelector } from "reselect";
 
-export const messagesSelector = (store: StoreType): message[] => store.messages;
-export const rateSelector = (store: StoreType): string => store.rate;
+import { message } from "../Types";
+import { StoreType } from "./reducers";
+
+export const messagesSelector = createSelector(
+    (store: StoreType): message[] => store.messages,
+    (messages) => messages,
+);
+export const rateSelector = createSelector(
+    (store: StoreType): string => store.rate,
+    (rate) => rate,
+);
