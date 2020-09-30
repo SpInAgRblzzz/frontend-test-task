@@ -2,7 +2,7 @@ import React, { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Big from "big.js";
 
-import { addServiceMessageAction, rateSelector } from "../store";
+import { addServiceMessageAction, deleteMessageAction, rateSelector } from "../store";
 
 type ListItemProps = {
     btcAmount?: number;
@@ -32,11 +32,15 @@ export const ListItem = ({
         dispatch(addServiceMessageAction(id));
     }, [dispatch, id]);
 
+    const handleDelete = useCallback(() => {
+        dispatch(deleteMessageAction(id));
+    }, [dispatch, id]);
+
     return (
         <div className={messageType}>
             <div>
                 <h3>{text}</h3>
-                {canDelete && <button>DELETE</button>}
+                {canDelete && <button onClick={handleDelete}>DELETE</button>}
             </div>
 
             <div>

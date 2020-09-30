@@ -49,6 +49,18 @@ export const addServiceMessageAction = (id: number | string): AddServiceMessageA
     payload: id,
 });
 
+const DELETE_MESSAGE = "DELETE_MESSAGE";
+
+type DeleteMessageAction = {
+    type: typeof DELETE_MESSAGE;
+    payload: number | string;
+};
+
+export const deleteMessageAction = (id: number | string): DeleteMessageAction => ({
+    type: DELETE_MESSAGE,
+    payload: id,
+});
+
 const rateReducer = (state = "0", action: UpdateRateAction): string => {
     switch (action.type) {
         case UPDATE_RATE:
@@ -58,10 +70,9 @@ const rateReducer = (state = "0", action: UpdateRateAction): string => {
     }
 };
 
-const messagesReducer = (
-    state: message[] = [],
-    action: SetMessagesAction | AddServiceMessageAction,
-): message[] => {
+type MessagesReducerAction = SetMessagesAction | AddServiceMessageAction | DeleteMessageAction;
+
+const messagesReducer = (state: message[] = [], action: MessagesReducerAction): message[] => {
     switch (action.type) {
         case SET_MESSAGES:
             return action.payload;
@@ -81,6 +92,24 @@ const messagesReducer = (
                         : [...newState, message],
                 [],
             );
+        case DELETE_MESSAGE:
+            return state.reduce((newState: message[], message) => {
+                if (action.payload === message.id) {
+                    return newState;
+                } else if (
+                    typeof action.payload === "string" &&
+                    message.id === +action.payload.replace("serviceFor", "")
+                ) {
+                    return [...newState, { ...message, serviceAdded: false }];
+                } else if (
+                    typeof action.payload === "number" &&
+                    message.id === `serviceFor${action.payload}`
+                ) {
+                    return newState;
+                } else {
+                    return [...newState, message];
+                }
+            }, []);
         default:
             return state;
     }
