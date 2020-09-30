@@ -1,6 +1,16 @@
 import React, { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Big from "big.js";
+import {
+    Button,
+    Card,
+    CardActions,
+    CardContent,
+    CardHeader,
+    List,
+    ListItemText,
+    Typography,
+} from "@material-ui/core";
 
 import { addServiceMessageAction, deleteMessageAction } from "../redux/actionCreators";
 
@@ -37,33 +47,46 @@ export const ListItem = ({ message }: ListItemProps) => {
     }, [dispatch, id]);
 
     return (
-        <div className={`message ${messageType}`}>
-            <div className="message-header">
-                <h3>{text}</h3>
-                {canDelete && <button onClick={handleDelete}>DELETE</button>}
-            </div>
+        <Card className={messageType} variant="outlined">
+            <CardHeader
+                title={text}
+                action={
+                    canDelete && (
+                        <Button onClick={handleDelete} color="secondary">
+                            DELETE
+                        </Button>
+                    )
+                }
+                subheader={
+                    btcAmount && (
+                        <p className="usd-rate">{Big(btcAmount).times(rate).toString()} USD</p>
+                    )
+                }
+            />
 
-            <div className="message-content">
-                {btcAmount && (
-                    <p className="usd-rate">{Big(btcAmount).times(rate).toString()} USD</p>
-                )}
+            <CardContent>
                 {Array.isArray(messageContent) ? (
-                    <ul>
+                    <List>
                         {messageContent.map(({ source, amount }, index) => (
-                            <li key={index} className="source-item">
-                                {source} {<p>{Big(amount).times(rate).toString()} USD</p>}
-                            </li>
+                            <ListItemText
+                                key={index}
+                                primary={source}
+                                secondary={`${Big(amount).times(rate).toString()} USD`}
+                            />
                         ))}
-                    </ul>
+                    </List>
                 ) : (
-                    messageContent
+                    <Typography>{messageContent}</Typography>
                 )}
-            </div>
+            </CardContent>
+
             {!isService && (
-                <button disabled={serviceAdded} onClick={handleAddServiceMessage}>
-                    Show secvice message
-                </button>
+                <CardActions>
+                    <Button disabled={serviceAdded} onClick={handleAddServiceMessage}>
+                        Show secvice message
+                    </Button>
+                </CardActions>
             )}
-        </div>
+        </Card>
     );
 };
