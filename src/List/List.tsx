@@ -23,30 +23,9 @@ export const List = () => {
     }, [dispatch]);
     return (
         <div className="messages-container">
-            {messages.map(
-                ({
-                    id,
-                    btcAmount,
-                    text,
-                    messageType,
-                    messageContent,
-                    canDelete,
-                    isService,
-                    serviceAdded,
-                }) => (
-                    <ListItem
-                        key={id}
-                        btcAmount={btcAmount}
-                        text={text}
-                        messageType={messageType}
-                        messageContent={messageContent}
-                        canDelete={canDelete}
-                        isService={isService}
-                        id={id}
-                        serviceAdded={serviceAdded}
-                    />
-                ),
-            )}
+            {messages.map((message) => (
+                <ListItem key={message.id} message={message} />
+            ))}
         </div>
     );
 };

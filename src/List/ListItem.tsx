@@ -2,29 +2,24 @@ import React, { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Big from "big.js";
 
-import { addServiceMessageAction, deleteMessageAction, rateSelector } from "../store";
+import { addServiceMessageAction, deleteMessageAction, message, rateSelector } from "../store";
 
 type ListItemProps = {
-    btcAmount?: number;
-    text: string;
-    messageType: string;
-    messageContent: string | { source: string; amount: number }[];
-    canDelete: boolean;
-    isService?: boolean;
-    id: number | string;
-    serviceAdded?: boolean;
+    message: message;
 };
-export const ListItem = ({
-    btcAmount,
-    text,
-    messageType,
-    messageContent,
-    canDelete,
-    isService,
-    id,
-    serviceAdded,
-}: ListItemProps) => {
+export const ListItem = ({ message }: ListItemProps) => {
     const dispatch = useDispatch();
+
+    const {
+        btcAmount,
+        text,
+        messageType,
+        messageContent,
+        canDelete,
+        isService,
+        id,
+        serviceAdded,
+    } = message;
 
     const rate = useSelector(rateSelector);
 
