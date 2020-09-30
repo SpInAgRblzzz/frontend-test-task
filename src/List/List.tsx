@@ -1,9 +1,8 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import Big from "big.js";
 
 import { getMessagesList } from "../fakeApi";
-import { messagesSelector, rateSelector, setMessagesAction } from "../store";
+import { messagesSelector, setMessagesAction } from "../store";
 
 import { ListItem } from "./ListItem";
 
@@ -11,7 +10,6 @@ export const List = () => {
     const dispatch = useDispatch();
 
     const messages = useSelector(messagesSelector);
-    const rate = useSelector(rateSelector);
 
     useEffect(() => {
         const messagesSubscribe = getMessagesList().subscribe((value) => {
@@ -23,11 +21,14 @@ export const List = () => {
     }, [dispatch]);
     return (
         <div>
-            {messages.map(({ id, btcAmount, text }) => (
+            {messages.map(({ id, btcAmount, text, messageType, messageContent, canDelete }) => (
                 <ListItem
                     key={id}
-                    usdAmount={btcAmount ? Big(btcAmount).times(rate).toString() : null}
+                    btcAmount={btcAmount}
                     text={text}
+                    messageType={messageType}
+                    messageContent={messageContent}
+                    canDelete={canDelete}
                 />
             ))}
         </div>
